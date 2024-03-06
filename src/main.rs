@@ -32,7 +32,14 @@ fn main() {
 
         loop {
             let mut buf = [0; 128];
-            let count = sp.lock().unwrap().read(&mut buf).unwrap();
+            let count = match sp.lock().unwrap().read(&mut buf) {
+                    Ok(count) => count,
+                    Err(err) => match err.kind() {
+                        io::ErrorKind::TimedOut => continue,
+                        _ => panic!("{:?}", err),
+                    },
+                };
+
             let data = &buf[..count];
 
             let _ = stdout.write(data).unwrap();
