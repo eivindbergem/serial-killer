@@ -27,6 +27,7 @@ fn main() {
                 let data = &buf[..count];
 
                 let _ = sp.lock().unwrap().write(data).unwrap();
+                sp.lock().unwrap().flush().unwrap();
             }
         });
 
