@@ -36,6 +36,7 @@ fn main() {
             let data = &buf[..count];
 
             let _ = stdout.write(data).unwrap();
+            stdout.flush().unwrap();
         }
     });
 }
