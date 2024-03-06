@@ -22,7 +22,7 @@ fn main() {
     std::thread::scope(|s| {
         s.spawn(|| {
             loop {
-                let mut buf = [0; 128];
+                let mut buf = [0; 1];
                 let count = stdin.read(&mut buf).unwrap();
                 let data = &buf[..count];
 
@@ -31,7 +31,7 @@ fn main() {
         });
 
         loop {
-            let mut buf = [0; 128];
+            let mut buf = [0; 1];
             let count = match sp.lock().unwrap().read(&mut buf) {
                     Ok(count) => count,
                     Err(err) => match err.kind() {
