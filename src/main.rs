@@ -1,7 +1,7 @@
 use std::{io::{self, Read, Write}, sync::Mutex};
 
 use clap::Parser;
-use termion::raw::IntoRawMode;
+use crossterm::terminal;
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -15,7 +15,9 @@ fn main() {
     let args = Args::parse();
     let sp = Mutex::new(serialport::new(args.device, args.baud_rate).open().unwrap());
     let mut stdin = io::stdin();
-    let mut stdout = io::stdout().into_raw_mode().unwrap();
+    let mut stdout = io::stdout();
+
+    terminal::enable_raw_mode().unwrap();
 
     std::thread::scope(|s| {
         s.spawn(|| {

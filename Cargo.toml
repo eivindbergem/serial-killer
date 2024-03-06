@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.1", features = ["derive"] }
+crossterm = "0.27.0"
 serialport = "4.3.0"
-termion = "3.0.0"
