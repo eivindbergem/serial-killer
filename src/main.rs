@@ -2,6 +2,7 @@ use std::{io::{self, Read, Write}, sync::Mutex};
 
 use clap::Parser;
 use crossterm::terminal;
+use serial2::SerialPort;
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -13,7 +14,7 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    let sp = Mutex::new(serialport::new(args.device, args.baud_rate).open().unwrap());
+    let sp = Mutex::new(SerialPort::open(args.device, args.baud_rate).unwrap());
     let mut stdin = io::stdin();
     let mut stdout = io::stdout();
 
