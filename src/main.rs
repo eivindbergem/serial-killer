@@ -40,7 +40,9 @@ fn main() {
 
             eprintln!("Data: {:?}", data);
             let _ = sp.lock().unwrap().write(data).unwrap();
+            eprintln!("Wrote data");
             sp.lock().unwrap().flush().unwrap();
+            eprintln!("Flushed");
         });
 
         loop {
