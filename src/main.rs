@@ -27,6 +27,7 @@ fn main() {
                 let count = stdin.read(&mut buf).unwrap();
                 let data = &buf[..count];
 
+                eprintln!("Data: {:?}", data);
                 let _ = sp.lock().unwrap().write(data).unwrap();
                 sp.lock().unwrap().flush().unwrap();
             }
